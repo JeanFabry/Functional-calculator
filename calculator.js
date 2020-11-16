@@ -12,7 +12,7 @@ for (let i = 0; i <= 9; i++) {
   });
 }
 
-const operations= ["+","-","*",":"]
+const operations= ["+","-","*","/"]
 for (let i=0; i<= operations.length-1;i++) {
 const op = document.createElement("button");
 op.textContent = operations[i];
