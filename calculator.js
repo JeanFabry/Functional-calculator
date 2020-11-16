@@ -43,7 +43,7 @@ keyboard.appendChild(floorD);
 keyboard.appendChild(floorE);
 
 
-const operations = ["(", ")", "%", "AC", "7", "8", "9", "/", "4", "5", "6", "x", "1", "2", "3", "-", "0", ".", "=", "+"]
+const operations = ["(", ")", "%", "AC", "7", "8", "9", "/", "4", "5", "6", "*", "1", "2", "3", "-", "0", ".", "=", "+"]
 for (let i=0; i<= operations.length-1;i++) {
     const op = document.createElement("button");
     op.textContent = operations[i];
