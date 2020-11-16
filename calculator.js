@@ -29,11 +29,12 @@ c.addEventListener("click", function () {
   ecran.textContent = "";
 });
 
+
 const equal = document.createElement("button");
 equal.textContent = "=";
 body.appendChild(equal);
-equal.addEventListener("click", function () {
-  ecran.textContent=eval(ecran.textContent);
+equal.addEventListener("click", function (){
+  ecran.textContent=Function('return ' + ecran.textContent)();
 });
 
 
