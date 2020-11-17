@@ -63,7 +63,7 @@ floorE.style.display = "flex";
 floorE.style.justifyContent = "space-around";
 floorE.style.margin = "10px 0";
 
-historique.style.height="125px";
+historique.style.height="100px";
 historique.style.width = "400px";
 historique.style.overflowX = "auto";
 historique.style.fontFamily="Arial";

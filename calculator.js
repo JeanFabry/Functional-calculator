@@ -3,11 +3,11 @@ const html = document.querySelector("html");
 const body = document.querySelector("body");
 const historique = document.createElement("div");
 const ecran = document.createElement("div");
-    const calcul = document.createElement("div");
-    ecran.appendChild(calcul);
+const calcul = document.createElement("div");
+ecran.appendChild(calcul);
 
-    const response = document.createElement("div");
-    ecran.appendChild(response);
+const response = document.createElement("div");
+ecran.appendChild(response);
 
 const keyboard = document.createElement("div");
 const subKeyboard = document.createElement("div");
@@ -16,27 +16,30 @@ const floorB = document.createElement("div");
 const floorC = document.createElement("div");
 const floorD = document.createElement("div");
 const floorE = document.createElement("div");
-    
+
 keyboard.appendChild(subKeyboard);
 subKeyboard.appendChild(floorA);
 subKeyboard.appendChild(floorB);
 subKeyboard.appendChild(floorC);
 subKeyboard.appendChild(floorD);
 subKeyboard.appendChild(floorE);
-    
+
 html.appendChild(body);
 body.appendChild(ecran);
 body.appendChild(keyboard);
 body.appendChild(historique);
 
-//------------End Hierarchy -------------
+//------------End Hierarchy ------------
 
 //------------Buttons and operations -------------
-const operations = ["(", ")", "%","AC","7","8","9","/", "4","5", "6","*","1", "2","3","-","0",".","=","+",];
+const operations = ["(",")","%","AC","7","8","9","/","4","5","6",
+  "*","1","2","3","-","0",".","=","+",];
 for (let i = 0; i <= operations.length - 1; i++) {
   //loop creation of buttons for each values of the array
   const op = document.createElement("button");
-  op.textContent = operations[i];
+  let cases = operations[i];
+  let pointKiller=false;
+  op.textContent = cases;
   //------------A bit of style for the buttons -------------
   op.style.width = "17%";
   op.style.height = "65px";
@@ -48,32 +51,75 @@ for (let i = 0; i <= operations.length - 1; i++) {
   op.style.fontFamily = "Arial";
   op.style.boxShadow = "2px 2px 5px rgb(63, 60, 68) ";
   //------------End of bit of style -------------
-    
+
   //------------- Operations --------------------
-  let cases = operations[i];
+
+  function ac(e) {
+    e.preventDefault(); 
+    if (e.code == "Space" || e.code == undefined) {
+      calcul.textContent = "";
+      response.textContent = "";
+    }
+  }
+
+  function equal(e) {
+    e.preventDefault();
+    if (e.code == "Enter" || e.code == "NumpadEnter" || e.code == undefined) {
+      let linebreak = "<br>";
+      response.textContent = Function("return " + calcul.textContent)();
+      historique.innerHTML +=
+        calcul.textContent + " =" + response.textContent + linebreak;
+      historique.style.display = "block";
+    }
+  }
+
+  function ecriture(e, i) {
+      console.log(e);
+    e.preventDefault();
+    if (
+      e.code == "Numpad" + i ||
+      e.code == undefined || e.key == i 
+    ) {
+      if (response.textContent == "") {
+        calcul.textContent += i;
+      } else {
+        calcul.textContent = i;
+        response.textContent = "";
+      }
+    }
+  }
+  
   switch (cases) {
     case "AC":
-      op.addEventListener("click", function () {
-        calcul.textContent = "";
-        response.textContent = "";
-      });
+      op.addEventListener("click", ac);
+      body.addEventListener("keypress", ac);
       break;
 
     case "=":
-      op.addEventListener("click", function () {
-        let linebreak ="<br>";
-        response.textContent = Function("return " + calcul.textContent)();
-        historique.innerHTML +=
-          calcul.textContent + " =" + response.textContent + linebreak;
-         historique.style.display = "block";
-      });
-      op.style.backgroundColor = "rgb(58, 147, 255)"
+      op.addEventListener("click", equal);
+      body.addEventListener("keypress", equal);
+      op.style.backgroundColor = "rgb(58, 147, 255)";
       break;
 
+    // case ".":
+    //   op.addEventListener("click", function () {
+    //     if (!pointKiller) {
+    //       pointKiller = true;
+    //       calcul.textContent += ".";
+    //     }
+    //   });
+
+    // case "%":
+    //     op.addEventListener("click", pourcent);
+    //   body.addEventListener("keypress", equal);
+    //     .textContent += '%' + safeEval(String(e1.textContent)) / 100; 
 
     default:
-      op.addEventListener("click", function () {
-        calcul.textContent += operations[i];
+      op.addEventListener("click", function (e) {
+        ecriture(e, cases);
+      });
+      body.addEventListener("keypress", function (e) {
+        ecriture(e, cases);
       });
   }
   //------------- End Operations --------------------
