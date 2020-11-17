@@ -1,6 +1,7 @@
 //-------------- Hierarchy -------------
 const html = document.querySelector("html");
 const body = document.querySelector("body");
+const historique = document.createElement("div");
 const ecran = document.createElement("div");
     const calcul = document.createElement("div");
     ecran.appendChild(calcul);
@@ -26,6 +27,8 @@ subKeyboard.appendChild(floorE);
 html.appendChild(body);
 body.appendChild(ecran);
 body.appendChild(keyboard);
+body.appendChild(historique);
+
 //------------End Hierarchy -------------
 
 //------------Buttons and operations -------------
@@ -51,16 +54,22 @@ for (let i = 0; i <= operations.length - 1; i++) {
   switch (cases) {
     case "AC":
       op.addEventListener("click", function () {
+        calcul.textContent = "";
         response.textContent = "";
       });
       break;
 
     case "=":
       op.addEventListener("click", function () {
-        response.textContent = Function("return " + ecran.textContent)();
+        let linebreak ="<br>";
+        response.textContent = Function("return " + calcul.textContent)();
+        historique.innerHTML +=
+          calcul.textContent + " =" + response.textContent + linebreak;
+         historique.style.display = "block";
       });
-      op.style.backgroundColor = "rgb(58, 147, 255)";
+      op.style.backgroundColor = "rgb(58, 147, 255)"
       break;
+
 
     default:
       op.addEventListener("click", function () {

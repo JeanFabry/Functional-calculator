@@ -63,3 +63,14 @@ floorE.style.display = "flex";
 floorE.style.justifyContent = "space-around";
 floorE.style.margin = "10px 0";
 
+historique.style.height="125px";
+historique.style.width = "400px";
+historique.style.overflowX = "auto";
+historique.style.fontFamily="Arial";
+historique.style.fontWeight = "bold";
+historique.style.padding="10px"
+historique.style.backgroundColor="white";
+historique.style.marginTop = "20px";
+historique.style.borderRadius= "10%";
+historique.style.textAlign="right";
+historique.style.display="none";
