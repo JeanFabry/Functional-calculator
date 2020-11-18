@@ -13,7 +13,6 @@ body.style.marginTop="5%";
 ecran.style.boxSizing="border-box";
 ecran.style.borderRadius="30% 30% 0% 0%";
 ecran.style.border = "30px solid rgb(94, 86, 107)";
-// ecran.style.lineHeight = "125px";
 ecran.style.height = "125px";
 ecran.style.paddingTop = "12px";
 ecran.style.width = "400px";
@@ -74,20 +73,3 @@ historique.style.marginTop = "20px";
 historique.style.borderRadius= "10%";
 historique.style.textAlign="right";
 historique.style.display="none";
-
-
-function throttle(callback, limit) {
-  var wait = false; // Initially, we're not waiting
-  return function () {
-    // We return a throttled function
-    if (!wait) {
-      // If we're not waiting
-      callback.call(); // Execute users function
-      wait = true; // Prevent future invocations
-      setTimeout(function () {
-        // After a period of time
-        wait = false; // And allow future invocations
-      }, limit);
-    }
-  };
-}
