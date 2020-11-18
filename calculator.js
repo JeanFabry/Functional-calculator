@@ -53,8 +53,9 @@ for (let i = 0; i <= operations.length - 1; i++) {
   //------------End of bit of style -------------
 
   //------------- Operations --------------------
+function kill (){return Function("return " + calcul.textContent)();} 
 
-  function ac(e) {
+function ac(e) {
     e.preventDefault(); 
     if (e.code == "Space" || e.code == undefined) {
       calcul.textContent = "";
@@ -66,7 +67,7 @@ for (let i = 0; i <= operations.length - 1; i++) {
     e.preventDefault();
     if (e.code == "Enter" || e.code == "NumpadEnter" || e.code == undefined) {
       let linebreak = "<br>";
-      response.textContent = Function("return " + calcul.textContent)();
+      response.textContent = kill();
       historique.innerHTML +=
         calcul.textContent + " =" + response.textContent + linebreak;
       historique.style.display = "block";
@@ -88,7 +89,24 @@ for (let i = 0; i <= operations.length - 1; i++) {
       }
     }
   }
-  
+//let monsieur = false; 
+
+  function point (e,i) {
+    if (e.key == i ||e.code == undefined) {
+        if (
+          (calcul.textContent.slice(-3).includes(".") == true) ||
+          (calcul.textContent.slice(-2).includes("+") == true) ||
+          (calcul.textContent.slice(-2).includes("-") == true) ||
+          (calcul.textContent.slice(-2).includes("/") == true) ||
+          (calcul.textContent.slice(-2).includes("*") == true)
+        ) {
+          calcul.textContent += "";
+        } else {
+          calcul.textContent += ".";
+        }
+      };
+    }
+
   switch (cases) {
     case "AC":
       op.addEventListener("click", ac);
@@ -96,23 +114,35 @@ for (let i = 0; i <= operations.length - 1; i++) {
       break;
 
     case "=":
+      // if (monsieur === false){
       op.addEventListener("click", equal);
       body.addEventListener("keypress", equal);
       op.style.backgroundColor = "rgb(58, 147, 255)";
       break;
 
-    // case ".":
-    //   op.addEventListener("click", function () {
-    //     if (!pointKiller) {
-    //       pointKiller = true;
-    //       calcul.textContent += ".";
-    //     }
-    //   });
-
-    // case "%":
-    //     op.addEventListener("click", pourcent);
+    // case "+":
+    //   // if (monsieur === false){
+    //   op.addEventListener("click", equal);
     //   body.addEventListener("keypress", equal);
-    //     .textContent += '%' + safeEval(String(e1.textContent)) / 100; 
+    //   op.style.backgroundColor = "rgb(58, 147, 255)";
+   // monsieur = true
+    //   break;
+
+    case ".":
+      op.addEventListener("click", function (e) {
+        point(e, cases);
+      });
+      body.addEventListener("keypress", function (e) {
+        point(e, cases);
+      });
+      break;
+
+    case "%":
+      op.addEventListener("click", function (e) {
+        response.textContent = calcul.textContent / 100;
+        calcul.textContent += "%";
+      });
+      break;
 
     default:
       op.addEventListener("click", function (e) {
